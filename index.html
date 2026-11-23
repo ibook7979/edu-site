@@ -66,6 +66,50 @@
             -webkit-backdrop-filter: blur(16px);
         }
 
+        @media (max-width: 639px) {
+            header,
+            header > div {
+                max-width: 100vw;
+                overflow-x: clip;
+            }
+
+            header a[href="#"],
+            header button:first-child {
+                min-width: 0;
+                flex-shrink: 1;
+            }
+
+            .tgai-mob-header-actions {
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                flex-shrink: 0 !important;
+                position: relative;
+                z-index: 50;
+            }
+
+            .tgai-mob-header-actions > a,
+            .tgai-mob-header-actions > button:not(:last-child) {
+                white-space: nowrap !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+                flex-shrink: 1;
+            }
+
+            .tgai-mob-header-actions > button:last-child {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 38px !important;
+                height: 38px !important;
+                flex-shrink: 0 !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        }
+
         /* 투명 배경 체커보드 미리보기 */
         .checkerboard-bg {
             background-color: #f8fafc;
@@ -122,31 +166,68 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-sky-500 selection:text-white">
 
-    <!-- 최상단 거점 및 직통 연락처 안내 바 -->
-    <div class="bg-brand-navy text-slate-200 text-xs py-2.5 px-4 border-b border-slate-800/90">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-1.5">
-            <div class="flex items-center gap-2">
-                <span class="inline-block w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                <span class="font-medium tracking-tight">TGAI · 대한민국4차산업협회 (방과후 강사 양성 · 인재 매칭 · 교재 유통 허브)</span>
+    <!-- 최상단 인프라 안내 바 ('교육원' 미사용 기준) -->
+    <div class="tgai-edu-topbar bg-slate-950 border-b border-slate-800/80 text-xs text-slate-300 py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="tgai-edu-topbar-brand flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-sky-400 inline-block shrink-0"></span>
+                <span>TGAI · 대한민국4차산업협회 <span class="hidden sm:inline">(방과후 강사 양성 · 인재 매칭 · 교재 유통 허브)</span></span>
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-slate-300 font-medium">
-                <a href="tel:0507-1432-7120" class="hover:text-white transition flex items-center gap-1">
-                    <i data-lucide="phone-call" class="w-3.5 h-3.5 text-sky-400"></i>
-                    <span>산학협력·대표실: <strong class="text-white">0507-1432-7120</strong></span>
+            <div class="tgai-edu-topbar-links flex flex-wrap items-center justify-center gap-3">
+                <a href="tel:0507-1432-7120" class="hover:text-cyan-400 transition">
+                    <i data-lucide="phone" class="inline-block w-3.5 h-3.5 text-sky-400 mr-1"></i><span class="tgai-lbl">산학협력·대표실:</span> <strong class="text-white">0507-1432-7120</strong>
                 </a>
-                <span class="hidden sm:inline text-slate-600">|</span>
-                <a href="tel:0507-1357-8291" class="hover:text-sky-300 transition flex items-center gap-1">
-                    <i data-lucide="headphones" class="w-3.5 h-3.5 text-sky-400"></i>
-                    <span>교육원·협회·통합몰: <strong class="text-sky-300">0507-1357-8291</strong></span>
+                <span class="text-slate-700">|</span>
+                <a href="tel:0507-1357-8291" class="hover:text-amber-400 transition">
+                    <i data-lucide="headphones" class="inline-block w-3.5 h-3.5 text-sky-400 mr-1"></i><span class="tgai-lbl">협회·통합몰:</span> <strong class="text-sky-400">0507-1357-8291</strong>
                 </a>
-                <span class="hidden md:inline text-slate-600">|</span>
-                <a href="mailto:ceo@tgaitech.com" class="hover:text-white transition flex items-center gap-1 bg-sky-500/20 px-2.5 py-0.5 rounded-full border border-sky-400/30">
-                    <i data-lucide="mail" class="w-3.5 h-3.5 text-sky-300"></i>
-                    <span>대표 이메일: <strong class="text-sky-200 underline">ceo@tgaitech.com</strong></span>
+                <a href="mailto:ceo@tgaitech.com" class="tgai-edu-mail px-2.5 py-1 rounded-full border border-sky-500/40 bg-sky-500/10 text-sky-300 hover:bg-sky-500/20 transition">
+                    <i data-lucide="mail" class="inline-block w-3.5 h-3.5 mr-1"></i>대표 이메일: <strong class="underline">ceo@tgaitech.com</strong>
                 </a>
             </div>
         </div>
     </div>
+
+    <style>
+        @media (max-width: 639px) {
+            .tgai-edu-topbar {
+                padding: 6px 10px;
+            }
+            .tgai-edu-topbar-brand {
+                font-size: 11px;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            .tgai-edu-topbar-links {
+                flex-wrap: nowrap;
+                gap: 6px;
+                width: 100%;
+                white-space: nowrap;
+                font-size: clamp(9px, 2.65vw, 11px);
+                letter-spacing: -0.03em;
+            }
+            .tgai-edu-topbar-links a,
+            .tgai-edu-topbar-links strong,
+            .tgai-edu-topbar-links span {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .tgai-edu-topbar-links .tgai-lbl {
+                display: none;
+            }
+            .tgai-edu-topbar-links a[href="tel:0507-1432-7120"]::before {
+                content: "대표실: ";
+                color: #cbd5e1;
+            }
+            .tgai-edu-topbar-links a[href="tel:0507-1357-8291"]::before {
+                content: "통합몰: ";
+                color: #cbd5e1;
+            }
+            .tgai-edu-mail {
+                display: none;
+            }
+        }
+    </style>
 
     <!-- 상단 글래스모피즘 스티키 내비게이션 -->
     <header class="sticky top-0 z-40 glass-header border-b border-slate-200/80 shadow-xs">
@@ -212,10 +293,10 @@
                     </div>
                 </button>
 
-                <button onclick="openLogoModal()" title="공식 글래스모피즘 칩 로고 PNG 다운로드"
-                        class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-sky-50 text-slate-600 hover:text-sky-700 border border-slate-200 hover:border-sky-300 text-xs font-bold transition">
-                    <i data-lucide="download" class="w-3.5 h-3.5 text-sky-600"></i>
-                    <span class="hidden xl:inline">로고 키트</span>
+                <button onclick="openLogoModal()" title="TGAI 로고 사용 안내 열기" aria-label="TGAI 로고 사용 안내 열기"
+                        class="hidden sm:inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-sky-50 text-slate-600 hover:text-sky-700 border border-slate-200 hover:border-sky-300 text-xs font-bold transition">
+                    <i data-lucide="info" class="w-3.5 h-3.5 text-sky-600"></i>
+                    <span class="hidden xl:inline">로고 안내</span>
                 </button>
             </div>
 
@@ -239,15 +320,15 @@
             </nav>
 
             <!-- 우측: TGAI 본사·통합몰 링크 & 모바일 메뉴 토글 -->
-            <div class="flex items-center gap-2">
-                <a href="https://tgaitech.com" target="_blank" rel="noopener noreferrer"
-                   class="hidden sm:inline-flex px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-xs sm:text-sm font-bold transition items-center gap-1.5">
-                    <i data-lucide="cpu" class="w-4 h-4 text-sky-600"></i>
+            <div class="tgai-mob-header-actions flex items-center gap-2 shrink-0">
+                <a href="https://tgaitech.com" target="_blank" rel="noopener noreferrer" aria-label="TGAI 본사" title="TGAI 본사"
+                   class="inline-flex px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-[11px] sm:text-sm font-bold transition items-center gap-1 sm:gap-1.5 whitespace-nowrap shrink-0">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-600 shrink-0"></i>
                     <span>TGAI 본사</span>
                 </a>
-                <a href="https://ibook7979.cafe24.com" target="_blank" rel="noopener noreferrer"
-                   class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-navy to-brand-deep hover:from-sky-600 hover:to-blue-700 text-white text-xs sm:text-sm font-bold transition flex items-center gap-1.5 shadow-sm">
-                    <i data-lucide="shopping-bag" class="w-4 h-4 text-sky-300"></i>
+                <a href="https://ibook7979.cafe24.com" target="_blank" rel="noopener noreferrer" aria-label="TGAI 통합몰" title="TGAI 통합몰"
+                   class="inline-flex px-2.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-gradient-to-r from-brand-navy to-brand-deep hover:from-sky-600 hover:to-blue-700 text-white text-[11px] sm:text-sm font-bold transition items-center gap-1 sm:gap-1.5 shadow-sm whitespace-nowrap shrink-0">
+                    <i data-lucide="shopping-bag" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-300 shrink-0"></i>
                     <span>TGAI 통합몰</span>
                     <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-80"></i>
                 </a>
@@ -302,6 +383,22 @@
                             <button onclick="switchPage('faculty')"
                                     class="px-5 py-3.5 rounded-full bg-white hover:bg-sky-50 text-slate-800 border border-slate-200 font-bold text-sm transition">
                                 교수진·R&D 인프라 보기
+                            </button>
+                        </div>
+                        <div class="block sm:hidden mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
+                            <div class="space-y-0.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-black text-slate-900">프라임허브</span>
+                                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-50 text-sky-700 border border-sky-200">BRAND ASSET</span>
+                                </div>
+                                <p class="text-xs text-slate-600 break-keep">
+                                    공식 로고 키트 및 브랜드 자산 안내를 한곳에서 확인하세요.
+                                </p>
+                            </div>
+                            <button type="button" onclick="openLogoModal()"
+                                    class="w-full px-4 py-2.5 rounded-xl bg-white hover:bg-sky-50 text-slate-800 hover:text-sky-700 border border-slate-200 hover:border-sky-300 text-xs font-bold transition inline-flex items-center justify-center gap-1.5">
+                                <i data-lucide="download" class="w-3.5 h-3.5 text-sky-600"></i>
+                                <span>로고 다운로드</span>
                             </button>
                         </div>
                     </div>
