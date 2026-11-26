@@ -58,6 +58,19 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes tgaiEduExclusiveRoll {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(0, -50%, 0); }
+        }
+        #tgai-exclusive-rolling-track {
+            display: flex;
+            flex-direction: column;
+            animation: tgaiEduExclusiveRoll 34s linear infinite;
+            will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #tgai-exclusive-rolling-track { animation: none !important; }
+        }
 
         /* 상단 글래스모피즘 헤더 */
         .glass-header {
@@ -143,7 +156,7 @@
         .animate-ticker {
             display: flex;
             flex-direction: column;
-            animation: scrollUp 18s linear infinite;
+            animation: scrollUp 20s linear infinite;
         }
         .animate-ticker:hover {
             animation-play-state: paused;
@@ -328,15 +341,16 @@
             <div class="tgai-mob-header-actions flex items-center gap-2 shrink-0">
                 <div class="hidden sm:flex items-center gap-2">
                     <a href="https://tgaitech.com" target="_blank" rel="noopener noreferrer"
-                       class="h-10 px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-xs sm:text-sm font-bold transition inline-flex items-center gap-1.5">
+                       class="inline-flex items-center justify-center gap-1.5 min-w-[146px] lg:min-w-[158px] px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold text-xs leading-none whitespace-nowrap transition">
                         <i data-lucide="cpu" class="w-4 h-4 text-sky-600"></i>
                         <span>TGAI 본사</span>
+                        <i data-lucide="external-link" class="hidden lg:inline-block w-3 h-3 text-slate-500"></i>
                     </a>
                     <a href="https://ibook7979.cafe24.com" target="_blank" rel="noopener noreferrer"
-                       class="h-10 px-4 rounded-xl bg-gradient-to-r from-brand-navy to-brand-deep hover:from-sky-600 hover:to-blue-700 text-white text-xs sm:text-sm font-bold transition flex items-center gap-1.5 shadow-sm">
+                       class="inline-flex items-center justify-center gap-1.5 min-w-[146px] lg:min-w-[158px] px-3.5 py-2 lg:px-4 lg:py-2.5 rounded-lg bg-[#0B1E3F] hover:bg-[#102A57] text-white font-bold text-xs leading-none whitespace-nowrap transition">
                         <i data-lucide="shopping-bag" class="w-4 h-4 text-sky-300"></i>
                         <span>TGAI 통합몰</span>
-                        <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-80"></i>
+                        <i data-lucide="external-link" class="w-3 h-3 text-sky-200"></i>
                     </a>
                     <button type="button" onclick="toggleMobileMenu()"
                             class="lg:hidden h-10 w-10 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 focus:outline-none inline-flex items-center justify-center"
@@ -411,22 +425,6 @@
                                 교수진·R&D 인프라 보기
                             </button>
                         </div>
-                        <div class="block sm:hidden mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
-                            <div class="space-y-0.5">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm font-black text-slate-900">프라임허브</span>
-                                    <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-50 text-sky-700 border border-sky-200">BRAND ASSET</span>
-                                </div>
-                                <p class="text-xs text-slate-600 break-keep">
-                                    공식 로고 키트 및 브랜드 자산 안내를 한곳에서 확인하세요.
-                                </p>
-                            </div>
-                            <button type="button" onclick="openLogoModal()"
-                                    class="w-full px-4 py-2.5 rounded-xl bg-white hover:bg-sky-50 text-slate-800 hover:text-sky-700 border border-slate-200 hover:border-sky-300 text-xs font-bold transition inline-flex items-center justify-center gap-1.5">
-                                <i data-lucide="download" class="w-3.5 h-3.5 text-sky-600"></i>
-                                <span>로고 다운로드</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -486,27 +484,371 @@
                             <div id="sim-result-box" class="hidden p-4 rounded-2xl bg-white/10 border border-sky-300/30 text-xs sm:text-sm text-sky-100 leading-relaxed"></div>
                         </div>
 
-                        <!-- 우측: 교재 미리보기 & 가이드북 DB 수집 훅 -->
-                        <div class="lg:col-span-5 bg-white text-slate-900 rounded-2xl p-5 sm:p-6 space-y-3 shadow-lg">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white text-[11px] font-black">무료 자료 배포</span>
-                                <span class="text-[11px] font-bold text-sky-700">TGAI 표준 교재 & 강사 지침서</span>
+                        <!-- 우측: 교재 미리보기 신청 + TGAI 통합몰 패키지 직통 결제 유도 카드 -->
+                        <div class="lg:col-span-5 bg-white text-slate-900 rounded-2xl p-5 sm:p-6 space-y-3.5 shadow-lg">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white text-[11px] font-black">강사 · 기관 전용</span>
+                                <span class="text-[11px] font-bold text-sky-700">TGAI 통합몰 (ibook7979.cafe24.com)</span>
                             </div>
-                            <h4 class="text-base sm:text-lg font-extrabold text-slate-900">
-                                방과후 수업 표준 교재 목차 &<br>강사 활동 가이드북 미리보기
+                            <h4 class="text-base sm:text-lg font-extrabold text-slate-900 leading-snug">
+                                방과후 표준 교재 · 실습 키트<br>강사 스타터 패키지 &amp; 기관 도매 공급
                             </h4>
                             <p class="text-xs text-slate-600 leading-relaxed">
-                                간단히 연락처를 남겨주시면 <strong>표준 교재 샘플 열람 링크</strong>와 도매 공급가 안내서를 즉시 보내드립니다.
+                                강사용 지도서 + 학생용 워크북·교구 묶음 세트를 <strong>협력기관·강사 특별가</strong>로 통합몰에서 바로 주문하거나, 샘플 열람을 신청하세요.
                             </p>
-                            <button type="button" onclick="openConsultModal('TGAI 표준 교재 미리보기 및 가이드북 신청')"
-                                    class="w-full py-3 rounded-xl bg-brand-navy hover:bg-brand-deep text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
-                                <i data-lucide="file-text" class="w-4 h-4 text-sky-300"></i>
-                                <span>교재 미리보기 & 가이드북 신청하기</span>
-                            </button>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                <a href="https://ibook7979.cafe24.com" target="_blank" rel="noopener noreferrer"
+                                   class="py-3 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
+                                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                                    <span>통합몰 패키지 바로주문</span>
+                                </a>
+                                <button type="button" onclick="openConsultModal('TGAI 표준 교재 미리보기 및 가이드북 신청')"
+                                        class="py-3 px-3 rounded-xl bg-brand-navy hover:bg-brand-deep text-white font-bold text-xs transition flex items-center justify-center gap-1.5">
+                                    <i data-lucide="file-text" class="w-4 h-4 text-sky-300"></i>
+                                    <span>샘플·도매단가표 신청</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 홈화면: 실시간 매칭 라이브 피드 & 활동 학교·기관·지역 전담 신청 -->
+            <section id="home-matching-apply-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-8">
+                <!-- 실시간 매칭 라이브 피드 -->
+                <div id="tgai-matching-feed-card" class="rounded-3xl bg-white border border-slate-200 p-6 shadow-soft">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <h3 class="text-sm font-extrabold text-slate-900">실시간 강사 위촉 지원 및 OO교육청·방과후학교·교육원 매칭 라이브 피드</h3>
+                        </div>
+                        <span class="text-[11px] font-bold text-sky-600 bg-sky-50 px-2.5 py-0.5 rounded-full">LIVE FEED</span>
+                    </div>
+                    <div class="h-32 overflow-hidden relative">
+                        <div id="live-rolling-feed" data-live-rolling-feed class="animate-ticker space-y-3 text-xs text-slate-700">
+    <!-- 1 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[김O연]</strong> AI·코딩 방과후 지도사 위촉 및 교재 패키지 출고
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">경기 광주 OO초등학교 연계</span>
+    </div>
+    <!-- 2 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[박O수]</strong> 생성형 AI 실무·공간정보 특강 강사 배정
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">성남 판교 OO기업교육센터</span>
+    </div>
+    <!-- 3 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[이O진]</strong> 창의융합 코딩 워크북 45세트 도매 출고 완료
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">서울 강남 OO방과후교실</span>
+    </div>
+    <!-- 4 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">자격제휴</span>
+            <strong class="text-brand-deep">[최O훈]</strong> 사회복지사 2급 학점은행 플랜 및 실습지 매칭
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">용인 OO사회복지관 연계</span>
+    </div>
+    <!-- 5 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[정O미]</strong> 실버 디지털·스마트폰 활용 전문 강사 등록
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">경기 하남 OO노인복지센터</span>
+    </div>
+    <!-- 6 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">인재모집</span>
+            <strong class="text-brand-deep">[한O석]</strong> 요양보호사 자격 취득 후 재가센터 취업 연계
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">수원 OO실버케어 지정원</span>
+    </div>
+    <!-- 7 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold">자료열람</span>
+            <strong class="text-brand-deep">[송O아]</strong> TGAI 표준 교재 미리보기 &amp; 강사 가이드북 신청
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">인천 송도 OO코딩아카데미</span>
+    </div>
+    <!-- 8 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[윤O호]</strong> 초등 돌봄교실 AI 창의융합 전문 강사 배정
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">화성 동탄 OO초등학교</span>
+    </div>
+    <!-- 9 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[강O우]</strong> 지능형 공간정보(GIS) 상권·입지 분석 출강 배정
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">성남 분당 OO창업지원센터</span>
+    </div>
+    <!-- 10 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[조O희]</strong> 초등 늘봄학교 AI 블록코딩 강사 위촉 완료
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">이천 OO초등학교 연계</span>
+    </div>
+    <!-- 11 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">자격제휴</span>
+            <strong class="text-brand-deep">[임O준]</strong> 평생교육사·AI 리터러시 과정 원격 연계 등록
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">안양 OO평생교육원</span>
+    </div>
+    <!-- 12 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[신O영]</strong> 중학생 프롬프트 엔지니어링 특강 강사 배정
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">고양 일산 OO중학교</span>
+    </div>
+    <!-- 13 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[권O민]</strong> 행정·사무 자동화(AI 업무툴) 기업 출강 확정
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">서울 구로 OO비즈니스센터</span>
+    </div>
+    <!-- 14 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold">자료열람</span>
+            <strong class="text-brand-deep">[황O지]</strong> 방과후 AI·로봇 교구 사양서 및 단가표 열람
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">평택 OO에듀센터</span>
+    </div>
+    <!-- 15 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[안O현]</strong> 스마트팜·AI 센서 기초 지도사 위촉
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">여주 OO농업교육장</span>
+    </div>
+    <!-- 16 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">인재모집</span>
+            <strong class="text-brand-deep">[송O빈]</strong> 디지털 역량 강화 교육 서포터즈 매칭 완료
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">의정부 OO복지관 연계</span>
+    </div>
+    <!-- 17 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[전O아]</strong> 초등 AI 미술·창작 방과후 강사 위촉
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">부천 원미 OO초등학교</span>
+    </div>
+    <!-- 18 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">자격제휴</span>
+            <strong class="text-brand-deep">[홍O석]</strong> 민간자격(AI융합지도사) 협회 위촉 절차 진행
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">대전 서구 OO직업전문학교</span>
+    </div>
+    <!-- 19 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[유O정]</strong> 지자체 공무원 생성형 AI 실무 워크숍 배정
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">경기 광주 OO행정연수원</span>
+    </div>
+    <!-- 20 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[문O혁]</strong> 피지컬 컴퓨팅·AI 로봇 교실 강사 배정
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">안산 단원 OO청소년수련관</span>
+    </div>
+    <!-- 21 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold">자료열람</span>
+            <strong class="text-brand-deep">[양O서]</strong> 연간 방과후 커리큘럼 제안서 샘플 신청
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">파주 운정 OO방과후학교</span>
+    </div>
+    <!-- 22 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[손O은]</strong> 시니어 키오스크·금융 앱 예방 교육 강사 위촉
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">광명 OO시니어클럽</span>
+    </div>
+    <!-- 23 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[배O우]</strong> 공간정보(GIS) 입지 리포트 구축 자문 연계
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">성남 판교 OO테크밸리</span>
+    </div>
+    <!-- 24 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[조O진]</strong> 초등 AI 데이터 리터러시 지도사 위촉
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">군포 OO초등학교 연계</span>
+    </div>
+    <!-- 25 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">자격제휴</span>
+            <strong class="text-brand-deep">[백O호]</strong> 사회복지 현장실습 기관 연계 및 상담 완료
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">오산 OO종합사회복지관</span>
+    </div>
+    <!-- 26 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[허O주]</strong> AI 문서·프레젠테이션 자동화 특강 강사 배정
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">서울 송파 OO교육지원센터</span>
+    </div>
+    <!-- 27 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">인재모집</span>
+            <strong class="text-brand-deep">[남O아]</strong> 방과후 코딩 보조강사 및 교구 세팅 인력 매칭
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">하남 미사 OO방과후교실</span>
+    </div>
+    <!-- 28 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[심O섭]</strong> 초등 소프트웨어·AI 캠프 강사 위촉
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">양평 OO초등학교 연계</span>
+    </div>
+    <!-- 29 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold">자료열람</span>
+            <strong class="text-brand-deep">[노O경]</strong> 4차산업 리더십 특강 강의안 샘플 요청
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">의왕 OO평생학습관</span>
+    </div>
+    <!-- 30 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[하O율]</strong> AI 기반 업무 프로세스 개선 컨설팅 매칭
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">용인 수지 OO기업부설연구소</span>
+    </div>
+
+    <!-- 무한 루프 자연스러운 연결용 선두 항목 복제 -->
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2 pt-1">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
+            <strong class="text-brand-deep">[김O연]</strong> AI·코딩 방과후 지도사 위촉 및 교재 패키지 출고
+        </span>
+        <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">경기 광주 OO초등학교 연계</span>
+    </div>
+    <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+        <span class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
+            <strong class="text-brand-deep">[박O수]</strong> 생성형 AI 실무·공간정보 특강 강사 배정
+        </span>
+        <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">성남 판교 OO기업교육센터</span>
+    </div>
+</div>
+                    </div>
+                </div>
+
+                <!-- 활동 중인 학교·기관·지역 전담 신청 -->
+                <div class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-soft">
+                    <div class="mb-6">
+                        <span class="inline-block px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold mb-2">
+                            강사 전담·독점 구역 보호 제도 · 실시간 접수
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">활동 중인 학교·기관·지역 전담 신청</h2>
+                        <p class="mt-1 text-xs sm:text-sm text-slate-500">
+                            접수 정보는 기존 Make 시스템으로 전송되고, 개인정보는 공개 피드에 노출되지 않습니다.
+                        </p>
+                    </div>
+
+                    <form id="tgai-exclusive-apply-form" onsubmit="submitExclusiveInstructorApply(event)" class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">구분 *</label>
+                            <select name="exclusiveType" required class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 focus:border-sky-500 focus:outline-none">
+                                <option value="출강·활동 기관 전담 신청">출강·활동 기관 전담 신청</option>
+                                <option value="지역 독점 구역 신청">지역 독점 구역 신청</option>
+                                <option value="교재·출강 연계 신청">교재·출강 연계 신청</option>
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">강사 성함 *</label>
+                            <input type="text" name="applicantName" required placeholder="예: 홍길동" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 focus:border-sky-500 focus:outline-none">
+                        </div>
+
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">연락처 *</label>
+                            <input type="tel" name="phone" required placeholder="010-0000-0000" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 focus:border-sky-500 focus:outline-none">
+                        </div>
+
+                        <div class="md:col-span-4">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">활동 중인 학교·기관·지역명 *</label>
+                            <input type="text" name="targetZone" required placeholder="예: 경기 광주 OO초·하남 OO센터" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 focus:border-sky-500 focus:outline-none">
+                        </div>
+
+                        <div class="md:col-span-9">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">출강 과목·활동 내용 (선택)</label>
+                            <input type="text" name="activityDetail" placeholder="예: 생성형 AI·방과후 코딩 출강 및 표준 교구 연계 희망" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 focus:border-sky-500 focus:outline-none">
+                        </div>
+
+                        <div class="md:col-span-3 flex items-end">
+                            <button type="submit" class="w-full rounded-xl bg-[#0284c7] px-5 py-3 text-sm font-bold text-white hover:bg-sky-700 transition">
+                                전담 신청 및 접수
+                            </button>
+                        </div>
+
+                        <div class="md:col-span-12 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                            <label class="flex items-start gap-2.5 cursor-pointer select-none">
+                                <input type="checkbox" name="privacyConsent" required checked
+                                       class="mt-0.5 w-4 h-4 rounded text-sky-600 border-slate-300 checked:bg-sky-600 checked:border-sky-600 focus:ring-sky-500">
+                                <span class="text-xs font-bold text-slate-800">개인정보 수집·이용 동의 (필수)</span>
+                            </label>
+                            <p class="text-[11px] text-slate-500 pl-6 leading-relaxed">
+                                수집 항목: 성함, 연락처, 신청 구분, 활동 구역, 활동 내용. 이용 목적: 신청 접수 및 전담·강사·기관 매칭 상담.
+                                입력 정보는 기존 Make 접수 시스템으로 전송됩니다. 신청서의 성함과 연락처는 공개 피드에 표시하지 않으며, 공개 매칭 기록의 이름은 관리자 확인 후 마스킹 표기만 사용합니다.
+                            </p>
+                        </div>
+                    </form>
+                    <div data-exclusive-feedback class="hidden text-xs mt-3" role="status" aria-live="polite"></div>
+                </div>
+            </section>
 
             <!-- 4개 서브페이지 직통 포털 카드 섹션 -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -588,28 +930,8 @@
                     </div>
                 </div>
 
-                <!-- R&D 거점 및 TGAI 통합몰 배너 -->
-                <div class="mt-10 p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200/90 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                    <div class="space-y-2">
-                        <div class="flex flex-wrap items-center gap-2.5">
-                            <span class="px-2.5 py-0.5 rounded-md bg-brand-navy text-sky-300 text-xs font-bold">R&D CENTERS & TGAI 통합몰</span>
-                            <span class="text-xs font-bold text-slate-600">산학협력·대표실: <a href="tel:0507-1432-7120" class="text-brand-deep underline">0507-1432-7120</a></span>
-                            <span class="text-slate-300">|</span>
-                            <span class="text-xs font-extrabold text-sky-700 bg-sky-100/80 px-2.5 py-0.5 rounded-md border border-sky-200">공식 메일: <a href="mailto:ceo@tgaitech.com" class="underline">ceo@tgaitech.com</a></span>
-                        </div>
-                        <div class="text-xs sm:text-sm text-slate-700 space-y-1">
-                            <p>• <strong>판교R&D센터:</strong> 경기도 성남시 분당구 대왕판교로645번길 12, 7층</p>
-                            <p>• <strong>광주R&D센터:</strong> 경기도 광주시 경충대로 1128-13, A동 101호</p>
-                        </div>
-                    </div>
-                    <a href="https://ibook7979.cafe24.com" target="_blank" rel="noopener noreferrer"
-                       class="px-6 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition flex items-center gap-2 shrink-0 shadow-md shadow-sky-600/20">
-                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                        <span>TGAI 통합몰 바로가기</span>
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                    </a>
-                </div>
             </div>
+
         </section>
 
         <!-- =====================================================
@@ -679,13 +1001,13 @@
                                 <span class="text-slate-500 font-medium">행정실 총괄</span>
                                 <span class="font-bold text-slate-900">김연 (교육원·협회·스토어: 0507-1357-8291)</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-slate-100 gap-1">
-                                <span class="text-slate-500 font-medium shrink-0">판교R&D센터</span>
-                                <span class="font-semibold text-slate-800 sm:text-right">경기도 성남시 분당구 대왕판교로645번길 12, 7층</span>
+                            <div class="flex items-center justify-between py-3.5 border-b border-slate-100 text-sm">
+                                <span class="text-slate-500 font-medium">판교R&amp;D센터</span>
+                                <span class="font-bold text-slate-900">성남 분당구 대왕판교로645번길 12 (7층)</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:justify-between py-2 gap-1">
-                                <span class="text-slate-500 font-medium shrink-0">광주R&D센터</span>
-                                <span class="font-semibold text-slate-800 sm:text-right">경기도 광주시 경충대로 1128-13, A동 101호</span>
+                            <div class="flex items-center justify-between pt-3.5 text-sm">
+                                <span class="text-slate-500 font-medium">광주R&amp;D센터</span>
+                                <span class="font-bold text-slate-900">경기 광주시 경충대로 1128-13 (A동)</span>
                             </div>
                         </div>
                     </div>
@@ -716,91 +1038,29 @@
                     </div>
                 </div>
 
-                <!-- 실시간 강사 위촉 지원 및 임시 땡땡 기관 롤링 피드 보드 -->
-                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-soft mb-10">
-                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <h3 class="text-sm font-extrabold text-slate-900">실시간 강사 위촉 지원 및 OO교육청·방과후학교·교육원 매칭 라이브 피드</h3>
-                            </div>
-                            <span class="text-[11px] font-bold text-sky-600 bg-sky-50 px-2.5 py-0.5 rounded-full">LIVE FEED</span>
-                        </div>
-                        <div class="h-32 overflow-hidden relative">
-                            <div id="live-rolling-feed" class="animate-ticker space-y-3 text-xs text-slate-700">
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
-                                        <strong class="text-brand-deep">[김O연]</strong> AI·코딩 방과후 지도사 위촉 및 교재 패키지 출고
+                    <section id="tgai-edu-landing-flow" class="space-y-6 mb-10 text-slate-800">
+                        <div class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm">
+                            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                                <div class="space-y-2">
+                                    <span class="inline-block px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-extrabold">
+                                        대한민국4차산업협회 · 교육원 강사 전담·독점 구역 보호 제도
                                     </span>
-                                    <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">경기 광주 OO초등학교 연계</span>
+                                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+                                        활동 중인 학교·기관·지역을 전담 구역으로 보호받고 출강·교재 연계를 확장하세요
+                                    </h2>
+                                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                        직접 개척·출강 중인 학교, 방과후학교, 교육원, 복지기관 및 활동 구역을 신청하시면 협회 내부 배정 시 우선 검토와 중복 배치 제한을 지원합니다. 신청은 기존 웹훅으로 접수되며, 최종 기관 계약·선정은 해당 기관 기준에 따릅니다.
+                                    </p>
                                 </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
-                                        <strong class="text-brand-deep">[박O수]</strong> 생성형 AI 실무·공간정보 특강 강사 배정
-                                    </span>
-                                    <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">성남 판교 OO기업교육센터</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
-                                        <strong class="text-brand-deep">[이O진]</strong> 창의융합 코딩 워크북 45세트 도매 출고 완료
-                                    </span>
-                                    <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">서울 강남 OO방과후교실</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">자격제휴</span>
-                                        <strong class="text-brand-deep">[최O훈]</strong> 사회복지사 2급 학점은행 플랜 및 실습지 매칭
-                                    </span>
-                                    <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">용인 OO사회복지관 연계</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
-                                        <strong class="text-brand-deep">[정O미]</strong> 실버 디지털·스마트폰 활용 전문 강사 등록
-                                    </span>
-                                    <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">경기 하남 OO노인복지센터</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">인재모집</span>
-                                        <strong class="text-brand-deep">[한O석]</strong> 요양보호사 자격 취득 후 재가센터 취업 연계
-                                    </span>
-                                    <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">수원 OO실버케어 지정원</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold">자료열람</span>
-                                        <strong class="text-brand-deep">[송O아]</strong> TGAI 표준 교재 미리보기 & 강사 가이드북 신청
-                                    </span>
-                                    <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">인천 송도 OO코딩아카데미</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
-                                        <strong class="text-brand-deep">[윤O호]</strong> 초등 돌봄교실 AI 창의융합 전문 강사 배정
-                                    </span>
-                                    <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">화성 동탄 OO초등학교</span>
-                                </div>
-                                <!-- 무한 루프 자연스러운 연결용 복제 세트 -->
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2 pt-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold">강사위촉</span>
-                                        <strong class="text-brand-deep">[김O연]</strong> AI·코딩 방과후 지도사 위촉 및 교재 패키지 출고
-                                    </span>
-                                    <span class="text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded">경기 광주 OO초등학교 연계</span>
-                                </div>
-                                <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                                    <span class="flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">기관매칭</span>
-                                        <strong class="text-brand-deep">[박O수]</strong> 생성형 AI 실무·공간정보 특강 강사 배정
-                                    </span>
-                                    <span class="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded">성남 판교 OO기업교육센터</span>
+                                <div class="flex flex-wrap items-center gap-2.5">
+                                    <span class="px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold">① 활동 구역 우선 검토</span>
+                                    <span class="px-3.5 py-1.5 rounded-full bg-sky-50 text-sky-800 text-xs font-bold">② 접수 · 상태 즉시 반영</span>
+                                    <span class="px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold">③ 교재·출강 연계 지원</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                    </section>
 
                 <!-- 명사·전문 강사 실시간 등록 폼 -->
                 <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-soft">
@@ -1142,12 +1402,14 @@
                         <p class="text-sm text-slate-600 leading-relaxed">
                             대한민국 첨단 IT·AI 산업의 중심지인 판교테크노밸리에 위치하여 인공지능 솔루션 연구, 공간정보 데이터 분석 및 기업 산학협력 프로젝트를 수행합니다.
                         </p>
-                        <div class="p-4 rounded-2xl bg-brand-ice border border-sky-200/80 text-xs space-y-1.5">
-                            <div class="font-bold text-slate-900 flex items-center gap-1.5">
-                                <i data-lucide="map-pin" class="w-4 h-4 text-sky-600"></i>
+                        <div class="rounded-2xl bg-sky-50/70 border border-sky-100 px-4 py-3.5">
+                            <div class="flex items-center gap-2 text-xs font-bold text-slate-900">
+                                <span class="text-sky-600">&#128205;</span>
                                 <span>경기도 성남시 분당구 대왕판교로645번길 12, 7층</span>
                             </div>
-                            <div class="text-slate-600 pl-5">산학협력·대표실 직통: <strong class="text-slate-900">0507-1432-7120</strong></div>
+                            <p class="mt-1 pl-5 text-xs text-slate-600">
+                                산학협력·대표실 직통: <strong class="text-slate-900">0507-1432-7120</strong>
+                            </p>
                         </div>
                     </div>
 
@@ -1160,12 +1422,14 @@
                         <p class="text-sm text-slate-600 leading-relaxed">
                             평생교육원 행정 지원, 방과후 전문 강사 실습 세미나, 전용 교재·교구 물류 허브 및 지역 사회복지·요양보호 교육 연계를 전담하는 핵심 거점입니다.
                         </p>
-                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
-                            <div class="font-bold text-slate-900 flex items-center gap-1.5">
-                                <i data-lucide="map-pin" class="w-4 h-4 text-sky-600"></i>
+                        <div class="rounded-2xl bg-slate-50 border border-slate-200/80 px-4 py-3.5">
+                            <div class="flex items-center gap-2 text-xs font-bold text-slate-900">
+                                <span class="text-sky-600">&#128205;</span>
                                 <span>경기도 광주시 경충대로 1128-13, A동 101호</span>
                             </div>
-                            <div class="text-slate-600 pl-5">교육원·협회·스토어 직통: <strong class="text-sky-700">0507-1357-8291</strong></div>
+                            <p class="mt-1 pl-5 text-xs text-slate-600">
+                                교육원·협회·스토어 직통: <strong class="text-sky-700">0507-1357-8291</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -1252,25 +1516,28 @@
                                 </a>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-sky-600 flex items-center justify-center shrink-0">
-                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between rounded-2xl border border-slate-200/90 bg-white px-5 py-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-sky-600 font-bold">&#128205;</div>
+                                        <div>
+                                            <div class="text-sm font-extrabold text-slate-900">판교R&amp;D센터</div>
+                                            <div class="text-xs text-slate-500">성남 분당구 대왕판교로645번길 12, 7층</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="text-xs font-extrabold text-slate-900">판교R&D센터</div>
-                                    <div class="text-xs text-slate-600 mt-0.5">경기도 성남시 분당구 대왕판교로645번길 12, 7층</div>
+
+                                <div class="flex items-center justify-between rounded-2xl border border-slate-200/90 bg-white px-5 py-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center text-sky-600 font-bold">&#128205;</div>
+                                        <div>
+                                            <div class="text-sm font-extrabold text-slate-900">광주R&amp;D센터</div>
+                                            <div class="text-xs text-slate-500">경기 광주시 경충대로 1128-13, A동 101호</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-sky-600 flex items-center justify-center shrink-0">
-                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div class="text-xs font-extrabold text-slate-900">광주R&D센터</div>
-                                    <div class="text-xs text-slate-600 mt-0.5">경기도 광주시 경충대로 1128-13, A동 101호</div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -1439,92 +1706,22 @@
         </div>
     </footer>
 
-    <!-- =========================================================
-         FLOATING QUICK-INQUIRY WIDGET
-         ========================================================= -->
-    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
-        <div id="quick-widget-panel" class="hidden w-[335px] sm:w-[370px] bg-white rounded-3xl border border-slate-200 shadow-2xl shadow-slate-900/25 mb-3 overflow-hidden">
-            <div class="bg-gradient-to-r from-brand-navy to-brand-deep px-5 py-4 text-white flex items-center justify-between">
-                <div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                        <span class="text-sm font-extrabold">빠른 상담 신청</span>
-                    </div>
-                    <p class="text-[11px] text-sky-200 mt-0.5">사회복지사 · 요양보호사 · AI · 강사초빙 간편 접수</p>
-                </div>
-                <button onclick="toggleQuickWidget()" class="p-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition" aria-label="창 닫기">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
+    <!-- 우측 하단 플로팅 상담 버튼 (카카오톡 TALK 공식 심볼 적용) -->
+    <div class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2.5">
+        <a href="https://pf.kakao.com/_snQNX" target="_blank" rel="noopener noreferrer"
+           class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#FEE500] hover:bg-[#FDD835] flex items-center justify-center shadow-lg shadow-black/40 transition hover:scale-105"
+           aria-label="카카오톡 채널 상담"
+           title="카카오톡 1:1 채널 상담">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 3C6.477 3 2 6.463 2 10.736c0 2.762 1.835 5.188 4.598 6.564-.153.553-.986 3.558-1.018 3.788 0 0-.02.167.088.231.108.064.235.015.235.015.31-.043 3.59-2.345 4.156-2.745.629.09 1.278.138 1.941.138 5.523 0 10-3.463 10-7.991C22 6.463 17.523 3 12 3Z" fill="#3C1E1E"/>
+                <text x="12" y="12.7" text-anchor="middle" fill="#FEE500" font-family="Arial, sans-serif" font-weight="900" font-size="5.4" letter-spacing="-0.2">TALK</text>
+            </svg>
+        </a>
 
-            <div class="p-5 max-h-[80vh] overflow-y-auto">
-                <form id="quick-widget-form" onsubmit="handleMakeWebhookSubmit(event, 'widget')" class="space-y-3">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1">희망 과정 <span class="text-rose-500">*</span></label>
-                        <select name="desiredCourse" required
-                                class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-900 bg-slate-50 focus:bg-white focus:outline-none focus:border-sky-600">
-                            <option value="TGAI 표준 교재 미리보기 및 가이드북 신청">📘 TGAI 표준 교재 미리보기 & 가이드북 신청</option>
-                            <option value="사회복지사 2급 과정">사회복지사 2급 과정 (학점은행제)</option>
-                            <option value="요양보호사 자격 과정">요양보호사 자격 취득 과정</option>
-                            <option value="방과후 전문 강사 양성과정">방과후 전문 강사 양성과정</option>
-                            <option value="AI·4차산업 직무 과정">AI · 공간정보 · 4차산업 직무 과정</option>
-                            <option value="고화질 원본 파일 승인 요청">고화질 원본 파일(AI/벡터) 승인 요청</option>
-                            <option value="전문가·명사 초빙 및 산학협력">전문가·명사 초빙 및 산학협력</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1">최종 학력 <span class="text-rose-500">*</span></label>
-                        <select name="educationLevel" required
-                                class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-900 bg-slate-50 focus:bg-white focus:outline-none focus:border-sky-600">
-                            <option value="전문학사(2·3년제) 졸업/중퇴">전문학사(2·3년제) 졸업 / 중퇴</option>
-                            <option value="학사(4년제) 이상 졸업">학사(4년제) 이상 졸업</option>
-                            <option value="고등학교 졸업">고등학교 졸업</option>
-                            <option value="기타/검정고시">기타 / 검정고시</option>
-                        </select>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 mb-1">이름 <span class="text-rose-500">*</span></label>
-                            <input type="text" name="userName" required placeholder="성함 입력"
-                                   class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-sky-600">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 mb-1">연락처 <span class="text-rose-500">*</span></label>
-                            <input type="tel" name="userPhone" required placeholder="010-0000-0000" oninput="formatPhone(this)" maxlength="13"
-                                   class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-sky-600">
-                        </div>
-                    </div>
-
-                    <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                        <label class="flex items-start gap-2 cursor-pointer select-none">
-                            <input type="checkbox" required checked class="mt-0.5 w-3.5 h-3.5 rounded text-sky-600 border-slate-300">
-                            <span class="text-[11px] font-bold text-slate-800 leading-tight">「개인정보 수집 및 제3자(제휴 교육기관) 제공 동의」 (필수)</span>
-                        </label>
-                        <p class="text-[10px] text-slate-500 pl-5 leading-snug">
-                            학습설계 상담 및 인가된 제휴 교육기관(원격평생교육원·요양보호사교육원) 과정 안내를 위해 수집·제공됩니다.
-                        </p>
-                    </div>
-
-                    <button type="submit"
-                            class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs transition shadow-md shadow-sky-600/20">
-                        1:1 무료 맞춤 플랜 신청
-                    </button>
-                </form>
-
-                <div id="widget-consult-result" class="hidden mt-3 p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-slate-800 space-y-1.5"></div>
-            </div>
-        </div>
-
-        <button onclick="toggleQuickWidget()"
-                class="group flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-brand-navy hover:bg-sky-600 text-white shadow-xl shadow-slate-900/25 border border-sky-400/30 transition-all duration-200 hover:scale-105">
-            <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-sky-400 group-hover:bg-white"></span>
-            </span>
-            <span class="text-xs sm:text-sm font-extrabold tracking-tight">빠른 상담</span>
-            <i data-lucide="message-square-plus" class="w-4 h-4 text-sky-300 group-hover:text-white"></i>
+        <button type="button" onclick="openLeadModal('빠른 도입 견적 및 수강 상담')"
+                class="flex items-center gap-2 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs shadow-2xl shadow-cyan-500/30 transition hover:scale-105">
+            <i data-lucide="headset" class="w-4 h-4"></i>
+            <span>빠른 견적 · 상담</span>
         </button>
     </div>
 
@@ -1568,6 +1765,7 @@
                             <option value="방과후 전문 강사 양성과정">방과후 전문 강사 양성과정 (교재 연계)</option>
                             <option value="AI·4차산업 직무 과정">AI · 공간정보 · 4차산업 직무 과정</option>
                             <option value="고화질 원본 파일 승인 요청">고화질 원본 파일(AI/벡터) 승인 요청</option>
+                            <option value="빠른 도입 견적 및 수강 상담">빠른 도입 견적 및 수강 상담</option>
                         </select>
                     </div>
 
@@ -1679,12 +1877,6 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
-        function toggleQuickWidget() {
-            const panel = document.getElementById('quick-widget-panel');
-            panel.classList.toggle('hidden');
-            lucide.createIcons();
-        }
-
         function togglePrivacyDetail(id) {
             const el = document.getElementById(id);
             if (el) el.classList.toggle('hidden');
@@ -1703,6 +1895,10 @@
             }
             modal.classList.remove('hidden');
             lucide.createIcons();
+        }
+
+        function openLeadModal(leadType) {
+            openConsultModal(leadType);
         }
 
         function closeConsultModal() {
@@ -1767,6 +1963,324 @@
             }
         }
 
+        const EDU_EXCLUSIVE_ITEMS_URL = './edu-exclusive-items.json';
+        const EDU_EXCLUSIVE_CACHE_KEY = 'tgai_edu_exclusive_items_v1';
+        const EDU_EXCLUSIVE_ADMIN_SESSION_KEY = 'tgai_edu_exclusive_admin_v1';
+        const EDU_EXCLUSIVE_BADGE_CLASSES = {
+            '전담인정': 'bg-indigo-100 text-indigo-700',
+            '강사위촉': 'bg-sky-100 text-sky-700',
+            '기관매칭': 'bg-emerald-100 text-emerald-700',
+            '자격제휴': 'bg-amber-100 text-amber-700',
+            '신규 접수': 'bg-amber-100 text-amber-700'
+        };
+        let tgaiEduExclusivePublishedItems = [];
+        let tgaiEduExclusiveSessionItems = [];
+
+        function isEduExclusiveAdmin() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('admin') === '1') {
+                    sessionStorage.setItem(EDU_EXCLUSIVE_ADMIN_SESSION_KEY, '1');
+                    return true;
+                }
+                return sessionStorage.getItem(EDU_EXCLUSIVE_ADMIN_SESSION_KEY) === '1';
+            } catch (error) {
+                console.warn('전담 구역 관리자 세션을 확인할 수 없습니다.', error);
+                return false;
+            }
+        }
+
+        function syncEduExclusiveAdminVisibility() {
+            const toggleButton = document.querySelector('button[onclick="toggleEduExclusiveAdminBox()"]');
+            if (toggleButton) toggleButton.classList.toggle('hidden', !isEduExclusiveAdmin());
+        }
+
+        function maskEduExclusivePerson(rawPerson) {
+            const raw = String(rawPerson || '').trim();
+            if (!raw) return '';
+            const clean = raw.startsWith('[') && raw.endsWith(']') ? raw.slice(1, -1).trim() : raw;
+            if (/^[가-힣]O+[가-힣]?$/.test(clean)) return `[${clean}]`;
+            if (clean.length === 1) return `[${clean}O]`;
+            if (clean.length === 2) return `[${clean[0]}O]`;
+            return `[${clean[0]}O${clean.slice(2)}]`;
+        }
+
+        function normalizeEduExclusiveItem(raw, fallbackTs) {
+            if (!raw || typeof raw !== 'object') return null;
+            const desc = String(raw.desc || raw.text || '').trim();
+            if (!desc) return null;
+
+            const parsedTs = Number(raw.ts);
+            return {
+                type: String(raw.type || '전담인정').trim(),
+                person: maskEduExclusivePerson(raw.person),
+                zone: String(raw.zone || raw.region || '').trim(),
+                desc,
+                ts: Number.isFinite(parsedTs) && parsedTs > 0 ? parsedTs : fallbackTs
+            };
+        }
+
+        function mergeEduExclusiveItems(...lists) {
+            const combined = [];
+            const seen = new Set();
+            let fallbackTs = Date.now() + lists.reduce((count, list) => count + (Array.isArray(list) ? list.length : 0), 0);
+
+            lists.forEach(list => {
+                if (!Array.isArray(list)) return;
+                list.forEach(raw => {
+                    const item = normalizeEduExclusiveItem(raw, fallbackTs--);
+                    if (!item) return;
+                    const key = `${item.type}|${item.person}|${item.zone}|${item.desc}`;
+                    if (seen.has(key)) return;
+                    seen.add(key);
+                    combined.push(item);
+                });
+            });
+
+            return combined.sort((a, b) => b.ts - a.ts);
+        }
+
+        function loadLocalEduExclusiveItems() {
+            try {
+                const raw = localStorage.getItem(EDU_EXCLUSIVE_CACHE_KEY);
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                console.warn('브라우저에 저장된 전담 구역 목록을 읽을 수 없습니다.', error);
+                return [];
+            }
+        }
+
+        function saveLocalEduExclusiveItems(items) {
+            try {
+                localStorage.setItem(EDU_EXCLUSIVE_CACHE_KEY, JSON.stringify(items));
+            } catch (error) {
+                console.warn('전담 구역 목록을 이 브라우저에 저장할 수 없습니다.', error);
+            }
+        }
+
+        async function fetchSharedEduExclusiveItems() {
+            try {
+                const response = await fetch(`${EDU_EXCLUSIVE_ITEMS_URL}?_t=${Date.now()}`, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                if (Array.isArray(data)) return data;
+                if (data && Array.isArray(data.exclusiveItems)) return data.exclusiveItems;
+                if (data && Array.isArray(data.items)) return data.items;
+                throw new Error('지원하지 않는 JSON 형식입니다.');
+            } catch (error) {
+                console.warn('공용 전담 구역 JSON을 불러오지 못했습니다. 브라우저 저장 목록을 사용합니다.', error);
+                return [];
+            }
+        }
+
+        function createEduExclusiveRow(item, isDuplicate) {
+            const row = document.createElement('div');
+            row.className = 'flex items-center justify-between gap-3 border-b border-slate-100 pb-2';
+            if (isDuplicate) row.setAttribute('aria-hidden', 'true');
+
+            const summary = document.createElement('span');
+            summary.className = 'flex min-w-0 flex-wrap items-center gap-2';
+            const typeBadge = document.createElement('span');
+            typeBadge.className = `shrink-0 rounded px-2 py-0.5 text-[10px] font-bold ${EDU_EXCLUSIVE_BADGE_CLASSES[item.type] || 'bg-sky-100 text-sky-700'}`;
+            typeBadge.textContent = item.type;
+            summary.appendChild(typeBadge);
+
+            if (item.person) {
+                const person = document.createElement('strong');
+                person.className = 'text-brand-deep';
+                person.textContent = `[${item.person}]`;
+                summary.appendChild(person);
+            }
+
+            const description = document.createElement('span');
+            description.className = 'text-slate-700';
+            description.textContent = item.desc;
+            summary.appendChild(description);
+
+            const zone = document.createElement('span');
+            zone.className = 'shrink-0 rounded bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-600';
+            zone.textContent = item.zone || '신청 접수';
+            row.append(summary, zone);
+            return row;
+        }
+
+        function renderEduExclusiveFeed() {
+            const track = document.getElementById('tgai-exclusive-rolling-track');
+            if (!track) return;
+
+            const items = mergeEduExclusiveItems(tgaiEduExclusiveSessionItems, tgaiEduExclusivePublishedItems);
+            track.replaceChildren();
+            if (items.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.className = 'py-3 text-center text-xs text-slate-500';
+                emptyMessage.textContent = '현재 공개된 전담·매칭 현황이 없습니다.';
+                track.appendChild(emptyMessage);
+                track.style.animation = 'none';
+                return;
+            }
+
+            track.style.animation = '';
+            items.forEach(item => track.appendChild(createEduExclusiveRow(item, false)));
+            items.forEach(item => track.appendChild(createEduExclusiveRow(item, true)));
+        }
+
+        async function initEduExclusiveFeed() {
+            syncEduExclusiveAdminVisibility();
+            const sharedItems = await fetchSharedEduExclusiveItems();
+            tgaiEduExclusivePublishedItems = mergeEduExclusiveItems(sharedItems, loadLocalEduExclusiveItems());
+            renderEduExclusiveFeed();
+        }
+
+        function toggleEduExclusiveAdminBox() {
+            if (!isEduExclusiveAdmin()) return;
+            const box = document.getElementById('tgai-edu-exclusive-admin-box');
+            if (!box) return;
+            box.classList.toggle('hidden');
+            if (!box.classList.contains('hidden')) {
+                const input = document.getElementById('edu-adm-desc');
+                if (input) input.focus();
+            }
+        }
+
+        function handleEduAdminDirectAdd() {
+            if (!isEduExclusiveAdmin()) return;
+            const typeInput = document.getElementById('edu-adm-type');
+            const personInput = document.getElementById('edu-adm-person');
+            const zoneInput = document.getElementById('edu-adm-zone');
+            const descInput = document.getElementById('edu-adm-desc');
+            if (!descInput || !descInput.value.trim()) {
+                if (descInput) descInput.focus();
+                return;
+            }
+
+            const item = normalizeEduExclusiveItem({
+                type: typeInput ? typeInput.value : '전담인정',
+                person: personInput ? personInput.value : '',
+                zone: zoneInput ? zoneInput.value : '',
+                desc: descInput.value,
+                ts: Date.now()
+            }, Date.now());
+            if (!item) return;
+
+            tgaiEduExclusivePublishedItems = mergeEduExclusiveItems([item], tgaiEduExclusivePublishedItems);
+            saveLocalEduExclusiveItems(tgaiEduExclusivePublishedItems);
+            renderEduExclusiveFeed();
+            descInput.value = '';
+        }
+
+        async function copyEduExclusiveJson() {
+            if (!isEduExclusiveAdmin()) return;
+            try {
+                await navigator.clipboard.writeText(JSON.stringify(tgaiEduExclusivePublishedItems, null, 2));
+                window.alert('공용 JSON을 복사했습니다. edu-exclusive-items.json에 반영해 배포해 주세요.');
+            } catch (error) {
+                console.error('전담 구역 JSON을 클립보드에 복사할 수 없습니다.', error);
+                window.alert('클립보드 복사에 실패했습니다. 브라우저 권한을 확인해 주세요.');
+            }
+        }
+
+        async function submitExclusiveInstructorApply(event) {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const feedback = form.parentElement.querySelector('[data-exclusive-feedback]');
+            const formData = new FormData(form);
+            const rawPhone = String(formData.get('phone') || '').trim();
+            const phoneDigits = rawPhone.replace(/[^0-9]/g, '');
+            if (phoneDigits.length < 9 || phoneDigits.length > 11) {
+                if (feedback) {
+                    feedback.className = 'rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800';
+                    feedback.textContent = '올바른 연락처(숫자 9~11자리)를 입력해 주세요.';
+                    feedback.classList.remove('hidden');
+                }
+                const phoneInput = form.querySelector('[name="phone"]');
+                if (phoneInput) phoneInput.focus();
+                return;
+            }
+
+            const registrationNo = `TGAI-EDU-${Date.now()}`;
+            const applicantName = String(formData.get('instructorName') || formData.get('applicantName') || '').trim();
+            const maskedPerson = maskEduExclusivePerson(applicantName);
+            const exclusiveType = String(formData.get('exclusiveType') || '전담인정').trim();
+            const targetZone = String(formData.get('targetZone') || '').trim();
+            const activityDetail = String(formData.get('activityDetail') || '').trim();
+            const feedDesc = activityDetail
+                ? `${activityDetail} · 전담 신청 접수`
+                : `${targetZone} 전담·출강 신청 접수`;
+
+            const payload = {
+                type: 'exclusive_zone_application',
+                source: '교육원_강사_전담구역_신청',
+                등록번호: registrationNo,
+                구분: exclusiveType,
+                강사성함: applicantName,
+                공개표기명: maskedPerson,
+                연락처: rawPhone,
+                전담기관및지역: targetZone,
+                활동내용: activityDetail,
+                개인정보수집동의: formData.get('privacyConsent') === 'on',
+                접수일시: new Date().toISOString()
+            };
+            const originalButtonText = submitButton ? submitButton.textContent : '';
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = '접수 중...';
+            }
+            if (feedback) {
+                feedback.className = 'text-xs text-slate-600';
+                feedback.textContent = '기존 접수 시스템으로 전송 중입니다.';
+                feedback.classList.remove('hidden');
+            }
+
+            try {
+                const result = await sendToMakeWebhook(payload);
+                if (!result || !result.success) {
+                    throw new Error('Make 웹훅이 접수 완료 응답을 반환하지 않았습니다.');
+                }
+
+                prependLiveRollingFeed(applicantName, `${targetZone} (${exclusiveType})`, targetZone);
+                form.reset();
+
+                if (feedback) {
+                    feedback.className = 'rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-800';
+                    feedback.textContent = `접수가 완료되었습니다. 신청 구역: ${targetZone} · 등록번호: ${registrationNo}`;
+                    feedback.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('전담 구역 신청을 접수하지 못했습니다.', error);
+                if (feedback) {
+                    feedback.className = 'rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700';
+                    feedback.textContent = '전송을 확인하지 못했습니다. 중복 접수를 피하려면 행정실에 먼저 확인해 주세요.';
+                    feedback.classList.remove('hidden');
+                }
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+            }
+        }
+
+        function runQuickSimulator() {
+            const trackEl = document.getElementById('sim-track');
+            const box = document.getElementById('sim-result-box');
+            if (!trackEl || !box) return;
+
+            const guides = {
+                afterschool: '<strong>방과후 전문 강사 트랙:</strong> AI·코딩·창의융합 지도 과정 연계, 협회 위촉 기회 및 표준 교재·교구 공급 혜택을 검토할 수 있습니다.',
+                welfare: '<strong>사회복지사 2급 · 요양보호사 제휴 트랙:</strong> 최종 학력별 이수 과목 설계와 제휴 교육기관·실습 연계 상담을 안내해 드립니다.',
+                partner: '<strong>교육기관·학원 표준 교재 도매 공급 트랙:</strong> 출강·수업용 워크북 및 교구 묶음 공급과 협력 조건을 협의할 수 있습니다.'
+            };
+
+            box.innerHTML = guides[trackEl.value] || guides.afterschool;
+            box.classList.remove('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', initEduExclusiveFeed);
+
         const TGAI_DATA_REPOSITORY = {
             affiliatedInstitutions: [
                 "OO평생교육원 본원",
@@ -1787,19 +2301,9 @@
             ]
         };
 
-        function prependLiveRollingFeed(name, field) {
-            const feed = document.getElementById('live-rolling-feed');
-            if (!feed) return;
+        const TGAI_ROLLING_FEED_STORAGE_KEY = 'tgai_rolling_feed_saved_v1';
 
-            const cleanName = (name || '').trim();
-            const maskedName = cleanName.length >= 2 ? cleanName[0] + 'O' + cleanName.slice(2) : 'OO';
-            const allTempEntities = [
-                ...TGAI_DATA_REPOSITORY.regionalOfficesOfEducation,
-                ...TGAI_DATA_REPOSITORY.afterSchoolPartners,
-                ...TGAI_DATA_REPOSITORY.affiliatedInstitutions
-            ];
-            const matchedEntity = allTempEntities[Math.floor(Math.random() * allTempEntities.length)];
-
+        function createRollingFeedItemNode({ badgeText, maskedName, description, rightLabel }) {
             const item = document.createElement('div');
             item.className = 'flex items-center justify-between border-b border-slate-50 pb-2 pt-1';
 
@@ -1808,20 +2312,78 @@
 
             const badge = document.createElement('span');
             badge.className = 'px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-bold';
-            badge.textContent = '신규등록';
+            badge.textContent = badgeText || '신규등록';
 
             const maskedNameLabel = document.createElement('strong');
             maskedNameLabel.className = 'text-brand-deep';
             maskedNameLabel.textContent = `[${maskedName}]`;
 
-            summary.append(badge, document.createTextNode(' '), maskedNameLabel, document.createTextNode(` ${field} 위촉 지원 완료`));
+            summary.append(badge, document.createTextNode(' '), maskedNameLabel, document.createTextNode(` ${description}`));
 
             const entity = document.createElement('span');
             entity.className = 'text-[11px] text-sky-600 font-bold bg-sky-50 px-2 py-0.5 rounded';
-            entity.textContent = matchedEntity;
+            entity.textContent = rightLabel;
 
             item.append(summary, entity);
-            feed.prepend(item);
+            return item;
+        }
+
+        function saveRollingFeedEntry(entry) {
+            try {
+                const raw = localStorage.getItem(TGAI_ROLLING_FEED_STORAGE_KEY);
+                const list = raw ? JSON.parse(raw) : [];
+                const nextList = Array.isArray(list) ? [entry, ...list].slice(0, 30) : [entry];
+                localStorage.setItem(TGAI_ROLLING_FEED_STORAGE_KEY, JSON.stringify(nextList));
+            } catch (error) {
+                console.warn('롤링 피드 항목을 브라우저에 저장할 수 없습니다.', error);
+            }
+        }
+
+        function restoreSavedRollingFeedEntries() {
+            const feeds = document.querySelectorAll('[data-live-rolling-feed]');
+            if (!feeds.length) return;
+            try {
+                const raw = localStorage.getItem(TGAI_ROLLING_FEED_STORAGE_KEY);
+                const list = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(list) || list.length === 0) return;
+
+                feeds.forEach(feed => {
+                    [...list].reverse().forEach(entry => {
+                        if (!entry || !entry.maskedName || !entry.description || !entry.rightLabel) return;
+                        feed.prepend(createRollingFeedItemNode(entry));
+                    });
+                });
+            } catch (error) {
+                console.warn('저장된 롤링 피드 항목을 불러올 수 없습니다.', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', restoreSavedRollingFeedEntries);
+
+        function prependLiveRollingFeed(name, field, customRightLabel) {
+            const feeds = document.querySelectorAll('[data-live-rolling-feed]');
+            if (!feeds.length) return;
+
+            const cleanName = (name || '').trim();
+            const maskedName = cleanName.length >= 2 ? cleanName[0] + 'O' + cleanName.slice(2) : 'OO';
+            const allTempEntities = [
+                ...TGAI_DATA_REPOSITORY.regionalOfficesOfEducation,
+                ...TGAI_DATA_REPOSITORY.afterSchoolPartners,
+                ...TGAI_DATA_REPOSITORY.affiliatedInstitutions
+            ];
+            const matchedEntity = customRightLabel
+                ? String(customRightLabel).trim()
+                : allTempEntities[Math.floor(Math.random() * allTempEntities.length)];
+
+            const entry = {
+                badgeText: '신규등록',
+                maskedName,
+                description: `${field} 위촉 지원 완료`,
+                rightLabel: matchedEntity
+            };
+
+            feeds.forEach(feed => feed.prepend(createRollingFeedItemNode(entry)));
+            saveRollingFeedEntry(entry);
         }
 
         async function handleMakeWebhookSubmit(event, source) {
@@ -1853,9 +2415,7 @@
                 ? 'modal-consult-result'
                 : source === 'instructor'
                     ? 'instructor-register-result'
-                    : source === 'widget'
-                        ? 'widget-consult-result'
-                        : 'page-consult-result';
+                    : 'page-consult-result';
             const resultBox = document.getElementById(targetResultId);
 
             try {
